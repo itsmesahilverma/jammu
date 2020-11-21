@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>Add Card</title>
+     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+
+  <!-- Bootstrap core CSS -->
+  <link href="../css/bootstrap.min.css" rel="stylesheet">
+
+  <!-- Custom styles for this template -->
+  <link href="../css/simple-sidebar.css" rel="stylesheet">
+
+
+</head>
+<body>
+
+
+
+ <div class="d-flex" id="wrapper">
+
+    <!-- Sidebar -->
+    <div class="bg-light border-right" id="sidebar-wrapper">
+      <div class="sidebar-heading" style="background-color:#c3ebe0">JK Mantra </div>
+      <div class="list-group list-group-flush" >
+        <a href="/jammumantra/jkmantra" class="list-group-item list-group-item-action " style="background-color:#c3ebe0">Dashboard</a>
+        <a href="/jammumantra/addcate" class="list-group-item list-group-item-action " style="background-color:#c3ebe0">Add Category</a>
+        <a href="/jammumantra/addsubcate" class="list-group-item list-group-item-action " style="background-color:#c3ebe0">Add SubCategory</a>
+        <a href="/jammumantra/addcard" class="list-group-item list-group-item-action " style="background-color:#c3ebe0">Add Card</a>
+        <a href="/jammumantra/list" class="list-group-item list-group-item-action " style="background-color:#c3ebe0">View All</a>
+     <!--    <a href="#" class="list-group-item list-group-item-action " style="background-color:#c3ebe0">Status</a>
+      --> </div>
+    </div>
+    <!-- /#sidebar-wrapper -->
+
+    <!-- Page Content -->
+    <div id="page-content-wrapper">
+
+      <nav class="navbar navbar-expand-lg navbar-light border-bottom" style="background-color:#fe4066">
+        <button class="btn btn-primary" id="menu-toggle">Toggle Menu</button>
+
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="nav navbar-nav navbar-center">
+      <li class="nav-item active">
+        <a class="nav-link" th:href="@{index}" style="padding-left: 3rem; font-weight:bold;">Home <span class="sr-only">(current)</span></a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" th:href="@{result}" style="padding-left: 3rem; font-weight:bold;">Results</a>
+      </li>
+
+      <li class="nav-item">
+        <a class="nav-link" th:href="@{notification}" style="padding-left: 3rem; font-weight:bold;">Notification</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" th:href="@{news}" style="padding-left: 3rem; font-weight:bold;">News</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" th:href="@{jobb}" style="padding-left: 3rem; font-weight:bold;">Jobs</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" th:href="@{tourist}" style="padding-left: 3rem; font-weight:bold;">Tourist</a>
+      </li>
+
+      </ul>
+   
+  </div>
+      </nav>
+
+      <div class="container-fluid">
+        <div class="container my-5">
+        <h3> Add Card</h3>
+        <div class="card">
+            <div class="card-body">
+                <div class="col-md-10">
+                    <form th:action="@{/jammumantra/add}" th:object="${card}" method="post">
+                        <div class="row">
+                        	<div class="form-group col-md-8">
+                                <label for="name" class="col-form-label">Category</label> 
+                                <select class="form-control" id="cate">
+                             
+	   								 <option th:each="i : ${categories}" th:value="${i.id}" th:text="${i.name}" th:required="required">
+	   								 </option>
+									</select>
+							</div>
+							<div class="form-group col-md-8">
+                                <label for="name" class="col-form-label">Sub Category</label> 
+                                <select class="form-control" th:field="*{subcategory}" id="subcate" >
+	   								 <option th:each="i : ${subcategory}" th:value="${i.id}" th:text="${i.name}" th:required="required">
+	   								 </option>
+									</select>
+							</div>
+                           
+                            <div class="form-group col-md-8">
+                                <label for="name" class="col-form-label">Card Title</label> <input type="text" name="cardtitle" th:field="*{cardtitle}" class="form-control" id="cardtitle" placeholder="cardtitle" th:required="required"> 
+                            <span th:if="${#fields.hasErrors('cardtitle')}" th:errors="*{cardtitle}" class="text-danger"></span>
+                            </div>
+                            <div class="form-group col-md-8">
+                                <label for="cardbody" class="col-form-label">Card Body</label> <input type="text" name="cardbody" th:field="*{cardbody}" class="form-control" id="cardbody" placeholder="cardbody" th:required="required">
+                           <span th:if="${#fields.hasErrors('cardbody')}" th:errors="*{cardbody}" class="text-danger"></span> 
+                            </div>
+
+							<!--WYSIWYG EDITOR APPLY HERE-->
+                            <div class="form-group col-md-8">
+                                <label for="cardlink" class="col-form-label">WYSIWYG EDITOR</label> <input type="text" name="cardlink" th:field="*{cardlink}" class="form-control" id="cardlink" placeholder="cardlink" th:required="required"> 
+                               <span th:if="${#fields.hasErrors('cardlink')}" th:errors="*{cardlink}" class="text-danger"></span>  
+                             </div>
+							<!--END-->
+                            
+                            <div class="col-md-6">
+                                <input type="submit" class="btn btn-primary" value="Add Card">
+                            </div>
+
+                            <div class="form-group col-md-8"></div>
+
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    </div>
+    </div>
+    <!-- /#page-content-wrapper -->
+
+  </div>
+  <!-- /#wrapper -->
+
+
+ <!-- Bootstrap core JavaScript -->
+  <script src="../js/jquery.min.js"></script>
+  <script src="../js/bootstrap.bundle.min.js"></script>
+
+  <!-- Menu Toggle Script -->
+  <script>
+    $("#menu-toggle").click(function(e) {
+      e.preventDefault();
+      $("#wrapper").toggleClass("toggled");
+    });
+  </script>
+ 
+ 
+ 
+     <script>
+    $(document).ready(function(){
+    		$("#cate").change(function(){
+                		var id = $("#cate").val();
+                		
+            	$.ajax({ 
+
+            		url : '/jammumantra/filtersubcate',
+            		type :'GET',
+            		dataType : 'json',
+            		data : {'id': id},
+            		contentType : "application/json",
+            		success : function(subcategory){  				
+            			console.log(subcategory);	
+            			var html = "";
+            			var len = subcategory.length;
+            			for(var i=0; i<len; i++)
+            			{
+            			html+='<option value="'+subcategory[i].id+'">'
+            			+subcategory[i].name + '</option>';
+            			}
+            			html += '</option>';
+            			$('#subcate').html(html);
+            			/* var formoption = "";
+            			$.each(subcategory, function(v)
+            					{
+            					var val = subcategory[v];
+            					formoption += "<option th:field="*{subcategory}" value='"+val.name+"'>"+val.name+"</option>";
+            				});
+            			
+            			$('#subcate')
+            			$('#subcate').html(formoption); */
+            		}
+            		
+            	});
+    		});
+        	
+    	    });
+    </script> 
+    
+</body>
+</html>
